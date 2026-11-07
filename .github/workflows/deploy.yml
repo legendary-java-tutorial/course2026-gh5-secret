@@ -1,0 +1,14 @@
+name: Deploy check
+on:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Секрет на месте
+        env:
+          DEMO_TOKEN: ${{ secrets.DEMO_TOKEN }}
+        run: |
+          if [ -z "$DEMO_TOKEN" ]; then echo "секрет DEMO_TOKEN не задан"; exit 1; fi
+          echo "длина секрета: ${#DEMO_TOKEN}"
